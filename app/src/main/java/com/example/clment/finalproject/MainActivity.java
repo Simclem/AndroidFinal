@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity
 
 
             Concert livreFromBdd = Gestionnaire.getConcert();
+            //Gestionnaire.getConcert();
             //Si un livre est retourné (donc si le livre à bien été ajouté à la BDD)
             if(livreFromBdd != null){
                 //On affiche les infos du livre dans un Toast

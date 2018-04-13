@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class DBGestionnaire {
 
     private static final int VERSION_BDD = 1;
-    private static final String NOM_BDD = "concert.db";
+    private static final String NOM_BDD = "concert1.db";
 
     private static final String TABLE = "concert";
     private static final String COL_ID = "ID";
@@ -27,11 +27,11 @@ public class DBGestionnaire {
 
     public DBGestionnaire(Context context){
         //On crée la BDD et sa table
-        Database maBaseSQLite = new Database(context, NOM_BDD, null, VERSION_BDD);
+        this.maBaseSQLite = new Database(context, NOM_BDD, null, VERSION_BDD);
     }
     public void open(Context context){
         //on ouvre la BDD en écriture
-        Database maBaseSQLite = new Database(context, NOM_BDD, null, VERSION_BDD);
+        //Database maBaseSQLite = new Database(context, NOM_BDD, null, VERSION_BDD);
 
         bdd = maBaseSQLite.getWritableDatabase();
     }
@@ -43,8 +43,13 @@ public class DBGestionnaire {
         return bdd;
     }
     public Concert getConcert(){
+    //public void getConcert(){
         //Récupère dans un Cursor les valeurs correspondant à un livre contenu dans la BDD (ici on sélectionne le livre grâce à son titre)
-        Cursor c = bdd.query(TABLE, new String[] {COL_ID, COL_CONCERT, COL_GROUPE}, null, null, null, null, null);
+
+        //bdd.execSQL("SELECT * FROM concert");
+
+        Cursor c = bdd.query(Database.TABLE, new String[] {Database.COL_ID, Database.COL_CONCERT, Database.COL_GROUPE}, null, null, null, null, null);
+
         return cursorToConcert(c);
     }
 
@@ -74,10 +79,10 @@ public class DBGestionnaire {
         //Création d'un ContentValues (fonctionne comme une HashMap)
         ContentValues values = new ContentValues();
         //on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
-        values.put(COL_CONCERT, concert.getNomConcert());
-        values.put(COL_GROUPE, concert.getNomGroupe());
+        values.put(Database.COL_CONCERT, concert.getNomConcert());
+        values.put(Database.COL_GROUPE, concert.getNomGroupe());
         //on insère l'objet dans la BDD via le ContentValues
-        return bdd.insert(TABLE, null, values);
+        return bdd.insert(Database.TABLE, null, values);
     }
 
 }

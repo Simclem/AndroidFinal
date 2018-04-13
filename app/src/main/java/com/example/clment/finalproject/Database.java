@@ -13,20 +13,20 @@ public class Database extends SQLiteOpenHelper{
 
 
 
-    private static final String TABLE = "concert";
-    private static final String COL_ID = "ID";
-    private static final String COL_CONCERT = "NomConcert";
-    private static final String COL_GROUPE = "NomGroupe";
+    public static final String TABLE = "concert";
+    public static final String COL_ID = "ID";
+    public static final String COL_CONCERT = "NomConcert";
+    public static final String COL_GROUPE = "NomGroupe";
 
 
-    private static final String CREATE_BDD = "CREATE TABLE " + TABLE + " ("
+    public static final String CREATE_BDD = "CREATE TABLE " + TABLE + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_CONCERT + " TEXT NOT NULL, "
             + COL_GROUPE + " TEXT NOT NULL);";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         //on crée la table à partir de la requête écrite dans la variable CREATE_BDD
-        //db.execSQL(CREATE_BDD);
+        db.execSQL(CREATE_BDD);
     }
     public Database(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
