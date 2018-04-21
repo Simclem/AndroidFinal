@@ -1,7 +1,9 @@
 package com.example.clment.finalproject;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -55,30 +57,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        try{
-            DBGestionnaire Gestionnaire = new DBGestionnaire(this);
 
-
-
-            Concert concert = new Concert("Boney M", "Rasputin");
-            Gestionnaire.open(this);
-            Gestionnaire.insertLivre(concert);
-
-
-            Concert livreFromBdd = Gestionnaire.getConcert();
-            //Gestionnaire.getConcert();
-            //Si un livre est retourné (donc si le livre à bien été ajouté à la BDD)
-            if(livreFromBdd != null){
-                //On affiche les infos du livre dans un Toast
-                Toast.makeText(this, livreFromBdd.toString(), Toast.LENGTH_LONG).show();
-                //On modifie le titre du livre
-                //Puis on met à jour la BDD
-
-            }
-        } catch (Exception E){
-            Toast.makeText(this, E.toString(), Toast.LENGTH_LONG).show();
-
-        }
 
     }
 
@@ -121,12 +100,31 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            Toast.makeText(this, "kmera", Toast.LENGTH_LONG).show();
+
+            InsertData FRGData = InsertData.newInstance("Insert", "map");
+            FragmentTransaction fgt = getSupportFragmentManager().beginTransaction();
+            fgt.addToBackStack("new fragment");
+            fgt.replace(R.id.container, FRGData).commit();        } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
+
+            Toast.makeText(this, "slideshow", Toast.LENGTH_LONG).show();
+
+
+
+            ConcertMap FRGData = ConcertMap.newInstance("Insert", "map");
+            FragmentTransaction fgt = getSupportFragmentManager().beginTransaction();
+            fgt.addToBackStack("new fragment");
+            fgt.replace(R.id.container, FRGData).commit();
+
         } else if (id == R.id.nav_manage) {
+            final int REQUEST_IMAGE_CAPTURE = 1;
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
 
         } else if (id == R.id.nav_share) {
 

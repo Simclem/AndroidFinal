@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
@@ -17,7 +20,7 @@ import android.view.ViewGroup;
  * Use the {@link InsertData#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InsertData extends Fragment {
+public class InsertData extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -26,7 +29,8 @@ public class InsertData extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    public EditText Debug;
+    public Button Bouton;
     private OnFragmentInteractionListener mListener;
 
     public InsertData() {
@@ -58,12 +62,27 @@ public class InsertData extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
+        View view = inflater.inflate(R.layout.fragment_insert_data,
+                container, false);
+        Bouton = (Button) view.findViewById(R.id.button3);
+
+        Debug = (EditText) view.findViewById(R.id.Debug);
+
+
+        Bouton.setOnClickListener(this);
+
+
         return inflater.inflate(R.layout.fragment_insert_data, container, false);
     }
 
@@ -73,6 +92,30 @@ public class InsertData extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+
+    public void getDataFromDB(){
+        try{
+            Debug.setText("test");
+            DBGestionnaire Gestionnaire = new DBGestionnaire(getContext());
+            Concert concert = new Concert("Boney M", "Rasputin");
+            Gestionnaire.open(getContext());
+            Gestionnaire.insertLivre(concert);
+            Concert livreFromBdd = Gestionnaire.getConcert();
+            //Si un livre est retourné (donc si le livre à bien été ajouté à la BDD)
+            if(livreFromBdd != null){
+                //On affiche les infos du livre dans un Toast
+                Debug.setText(livreFromBdd.toString());
+                Toast.makeText(getContext(), livreFromBdd.toString(), Toast.LENGTH_LONG).show();
+                //On modifie le titre du livre
+                //Puis on met à jour la BDD
+
+            }
+        } catch (Exception E){
+            Toast.makeText(getContext(), E.toString(), Toast.LENGTH_LONG).show();
+
+        }
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -90,6 +133,17 @@ public class InsertData extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button3:
+
+
+            break;
+        }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
