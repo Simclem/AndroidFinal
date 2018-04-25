@@ -16,7 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ConcertMap.OnFragmentInteractionListener {
@@ -100,17 +103,29 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Toast.makeText(this, "kmera", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "kmera", Toast.LENGTH_LONG).show();
 
             InsertData FRGData = InsertData.newInstance("Insert", "map");
             FragmentTransaction fgt = getSupportFragmentManager().beginTransaction();
             fgt.addToBackStack("new fragment");
-            fgt.replace(R.id.container, FRGData).commit();        } else if (id == R.id.nav_gallery) {
+            fgt.replace(R.id.container, FRGData).commit();
+        } else if (id == R.id.nav_gallery) {
+            //Toast.makeText(this, "kmera", Toast.LENGTH_LONG).show();
+
+            DisplayData FRGData = DisplayData.newInstance("Insert", "map");
+            FragmentTransaction fgt = getSupportFragmentManager().beginTransaction();
+            fgt.addToBackStack("new fragment");
+            fgt.replace(R.id.container, FRGData).commit();
+
+            TextView txtFrg2 = (TextView) findViewById(R.id.Result);
+
+            //Toast.makeText(getContext(), Data, Toast.LENGTH_LONG).show();
+
 
         } else if (id == R.id.nav_slideshow) {
 
 
-            Toast.makeText(this, "slideshow", Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, "slideshow", Toast.LENGTH_LONG).show();
 
 
 

@@ -9,6 +9,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class DBGestionnaire {
 
     private static final int VERSION_BDD = 1;
@@ -42,7 +44,7 @@ public class DBGestionnaire {
     public SQLiteDatabase getBDD(){
         return bdd;
     }
-    public Concert getConcert(){
+    public ArrayList<Concert> getAllConcert(){
     //public void getConcert(){
         //Récupère dans un Cursor les valeurs correspondant à un livre contenu dans la BDD (ici on sélectionne le livre grâce à son titre)
 
@@ -50,7 +52,21 @@ public class DBGestionnaire {
 
         Cursor c = bdd.query(Database.TABLE, new String[] {Database.COL_ID, Database.COL_CONCERT, Database.COL_GROUPE}, null, null, null, null, null);
 
-        return cursorToConcert(c);
+        if (c.getCount() == 0)
+            return null;
+
+
+        ArrayList<Concert> toReturn = new ArrayList<Concert>();
+        c.moveToFirst();
+
+        for(int i= 0 ; i < c.getCount(); i ++){
+            Concert concert = new Concert();
+            concert.setNomConcert(c.getString(NUM_COL_ISBN));
+            concert.setNomGroupe(c.getString(NUM_COL_TITRE));
+            c.moveToNext();
+            toReturn.add(concert);
+        }
+        return toReturn;
     }
 
 

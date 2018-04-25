@@ -27,4 +27,5 @@ public class Concert {
     public void setNomGroupe(String newName){
         NomGroupe = newName;
     }
+    public String  toString(){ return "Nom Concert : " + NomConcert + "   NomGroupe : "+ NomGroupe ;}
 }
