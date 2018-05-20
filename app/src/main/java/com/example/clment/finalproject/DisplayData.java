@@ -78,21 +78,11 @@ public class DisplayData extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_display_data,
                 container, false);
 
-
-
-
-
-
-        //txt = (TextView) view.findViewById(R.id.textView5);
         txt =(TextView) rootView.findViewById(R.id.Result);
         Toast.makeText(getContext(), txt.getText(), Toast.LENGTH_LONG).show();
-        //((TextView) view.findViewById(R.id.textView5)).setText("test");
-        // Inflate the layout for this fragment
 
         Toast.makeText(getContext(), txt.getText(), Toast.LENGTH_LONG).show();
 
-
-    //txt.setText();
 
         DBGestionnaire Gestionnaire = new DBGestionnaire(getActivity());
         Gestionnaire.open(getActivity());
@@ -116,6 +106,7 @@ public class DisplayData extends Fragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
+    //on est elle appelée
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
